@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 15px;
+    background: #ccc;
+    color: #fff;
+    overflow: hidden;                                       /* remove navigation bar */
+}
+
+/* CONTAINER */
+.container {
+    position: absolute;                                     /* shows all sections */
+    left: 0;
+    top: 0;
+    width: 100%;                                            /* 100% on browser */
+    height: 100%;                                           /* 100% on browser */
+}
+.container > input,
+.container > span {
+    position: fixed;                                        /* bottom navigation bar */
+    bottom: 0;
+    width: 20%;                                             /* 5 menus: 100/5 = 20% for each menu */
+    height: 34px;
+    line-height: 34px;                                      /* text align */
+    cursor: pointer;
+}
+
+/* NAVIGATION + SCROLL */
+#radio-nav-1, #radio-nav-1 + span {left: 0%;}
+#radio-nav-2, #radio-nav-2 + span {left: 20%;}              /* first size + 20% (width: 20%;) */
+#radio-nav-3, #radio-nav-3 + span {left: 40%;}
+#radio-nav-4, #radio-nav-4 + span {left: 60%;}
+#radio-nav-5, #radio-nav-5 + span {left: 80%;}
+
+#radio-nav-1:checked ~ .scroll {                            /* transition between pages; chosen effect in 'SCROLL - SECTION' */
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+}
+#radio-nav-2:checked ~ .scroll {
+    transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+}
+#radio-nav-3:checked ~ .scroll {
+    transform: translateY(-200%);
+    -webkit-transform: translateY(-200%);
+}
+#radio-nav-4:checked ~ .scroll {
+    transform: translateY(-300%);
+    -webkit-transform: translateY(-300%);
+}
+#radio-nav-5:checked ~ .scroll {
+    transform: translateY(-400%);
+    -webkit-transform: translateY(-400%);
+}
+
+/* MENU SPAN */
+.container > span {
+    background: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    color: #48b188;
+    text-align: center;
+    z-index: 10;
+}
+/* MENU INPUT */
+.container > input {
+    z-index: 15;                                            /* click on the menu */
+    opacity: 0;
+}
+.container > input:checked + span,                          /* mark which menu is checked */
+.container > input:checked:hover + span {                   /* clicked menu is checked */
+    background: rgba(46, 148, 109, 1);
+    color: #fff;
+}
+
+.container > input:checked + span::after,                   /* decorative arrow in the menu */
+.container > input:checked::hover + span::after {
+    content: "";                                            /* empty element */
+    width: 0;
+    height: 0;
+    position: absolute;                                     /* floated element */
+    bottom: 100%;
+    border: solid transparent;
+    border-bottom-color: rgba(46, 148, 109, 1);
+    border-width: 15px;                                     /* border size */
+    left: 50%;                                              /* centered within the menu */
+    margin-left: -15px;                                     /* removes -15% of the size due to the 50%*/
+}
+
+.container > input:hover + span {
+    background: rgba(46, 148, 109, .8);
+    color: #fff;
+}
+
+/* SECTIONS */                                              /* section colors */
+#section-1 {background: #f47933;}
+#section-2 {background: #008fd5;}
+#section-3 {background: #3f689e;}
+#section-4 {background: #cf669c;}
+#section-5 {background: #4a3abe;}
+
+/* SCROLL - SECTION */                                      /* styles */
+.scroll,
+.section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: all .6s ease-in-out;                        /* smooth effect */
+    -webkit-transition: all .6s ease-in-out;
+}
+.section {overflow: hidden;}                                /* removes a piece from logo in the above section */
+
+/* LOGO */
+.logo {
+    position: relative;
+    margin: 0 auto;                                         /* center on the screen */
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    transform: translateY(-50%) rotate(45deg);              /* rotating logo */
+    -webkit-transform: translateY(-50%) rotate(45deg);
+}
+.logo span {
+    font-size: 30px;
+    position: absolute;
+    top: 150px;
+    left: 72px;
+    color: rgba(46, 148, 109, 1);
+} 
+
+/* TITLE CONTENT */
+.section h2 {
+    position: absolute;
+    width: 100%;
+    font-size: 54px;
+    text-align: center;
+    font-weight: bold;
+    top: 50%;
+    margin-top: -70px;
+}
+
+/* TEXT CONTENT */
+.section p {
+    position: absolute;
+    width: 50%;
+    font-size: 16px;
+    text-align: center;
+    top: 50%;
+    left: 25%;
+    margin-top: 10px;
+}
+
+/* ANIMATIONS - TITLE CONTENT */
+#radio-nav-1:checked ~ .scroll #section-1 h2,
+#radio-nav-2:checked ~ .scroll #section-2 h2,
+#radio-nav-3:checked ~ .scroll #section-3 h2,
+#radio-nav-4:checked ~ .scroll #section-4 h2,
+#radio-nav-5:checked ~ .scroll #section-5 h2 {
+    animation: animeDown .7s ease-in-out .4s backwards;
+    -webkit-animation: animeDown .7s ease-in-out .4s backwards;
+}
+
+/* ANIMATIONS - CONTENT */
+#radio-nav-1:checked ~ .scroll #section-1 p,
+#radio-nav-2:checked ~ .scroll #section-2 p,
+#radio-nav-3:checked ~ .scroll #section-3 p,
+#radio-nav-4:checked ~ .scroll #section-4 p,
+#radio-nav-5:checked ~ .scroll #section-5 p {
+    animation: animeDown .7s ease-in-out .4s backwards;
+    -webkit-animation: animeDown .7s ease-in-out .4s backwards;
+}
+
+@keyframes animeDown {
+	0% {
+		transform: translateY(-50px);
+		-webkit-transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes animeDown {
+	0% {
+		transform: translateY(-50px);
+		-webkit-transform: translateY(-50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+@keyframes animeUp {
+	0% {
+		transform: translateY(50px);
+		-webkit-transform: translateY(50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-webkit-keyframes animeUp {
+	0% {
+		transform: translateY(50px);
+		-webkit-transform: translateY(50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0px);
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
